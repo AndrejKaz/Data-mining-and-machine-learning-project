@@ -3,21 +3,21 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "bb44f7b9",
+   "id": "a81fb9de",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2026-06-10T13:14:15.439898Z",
-     "iopub.status.busy": "2026-06-10T13:14:15.439514Z",
-     "iopub.status.idle": "2026-06-10T13:14:16.806818Z",
-     "shell.execute_reply": "2026-06-10T13:14:16.805726Z"
+     "iopub.execute_input": "2026-06-10T13:38:44.245527Z",
+     "iopub.status.busy": "2026-06-10T13:38:44.244980Z",
+     "iopub.status.idle": "2026-06-10T13:38:45.766665Z",
+     "shell.execute_reply": "2026-06-10T13:38:45.765508Z"
     },
     "papermill": {
-     "duration": 1.37341,
-     "end_time": "2026-06-10T13:14:16.809078+00:00",
+     "duration": 1.528614,
+     "end_time": "2026-06-10T13:38:45.769034+00:00",
      "exception": false,
-     "start_time": "2026-06-10T13:14:15.435668+00:00",
+     "start_time": "2026-06-10T13:38:44.240420+00:00",
      "status": "completed"
     },
     "tags": []
@@ -28,6 +28,7 @@
     "import pandas as pd\n",
     "import re\n",
     "\n",
+    "\n",
     "#Getting the needed datasets\n",
     "pokemon_data = pd.read_csv(\"/kaggle/input/datasets/andrejkaz/pokemon-card-masterset/pokemon-tcg-data-master 1999-2023.csv\")\n",
     "price_data = pd.read_csv(\"/kaggle/input/datasets/andrejkaz/pokemon-price-dataset/pokemon_pricecharting.csv\")"
@@ -36,19 +37,19 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "6578cbc3",
+   "id": "f7551278",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2026-06-10T13:14:16.815534Z",
-     "iopub.status.busy": "2026-06-10T13:14:16.814768Z",
-     "iopub.status.idle": "2026-06-10T13:14:16.871479Z",
-     "shell.execute_reply": "2026-06-10T13:14:16.870485Z"
+     "iopub.execute_input": "2026-06-10T13:38:45.774212Z",
+     "iopub.status.busy": "2026-06-10T13:38:45.773834Z",
+     "iopub.status.idle": "2026-06-10T13:38:45.828445Z",
+     "shell.execute_reply": "2026-06-10T13:38:45.827287Z"
     },
     "papermill": {
-     "duration": 0.063121,
-     "end_time": "2026-06-10T13:14:16.874246+00:00",
+     "duration": 0.059921,
+     "end_time": "2026-06-10T13:38:45.830661+00:00",
      "exception": false,
-     "start_time": "2026-06-10T13:14:16.811125+00:00",
+     "start_time": "2026-06-10T13:38:45.770740+00:00",
      "status": "completed"
     },
     "tags": []
@@ -83,24 +84,46 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "6535ef00",
+   "id": "9ce5ae92",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2026-06-10T13:14:16.881812Z",
-     "iopub.status.busy": "2026-06-10T13:14:16.881190Z",
-     "iopub.status.idle": "2026-06-10T13:14:17.418483Z",
-     "shell.execute_reply": "2026-06-10T13:14:17.417460Z"
+     "iopub.execute_input": "2026-06-10T13:38:45.835417Z",
+     "iopub.status.busy": "2026-06-10T13:38:45.835038Z",
+     "iopub.status.idle": "2026-06-10T13:38:46.374552Z",
+     "shell.execute_reply": "2026-06-10T13:38:46.373490Z"
     },
     "papermill": {
-     "duration": 0.543372,
-     "end_time": "2026-06-10T13:14:17.420670+00:00",
+     "duration": 0.54457,
+     "end_time": "2026-06-10T13:38:46.376825+00:00",
      "exception": false,
-     "start_time": "2026-06-10T13:14:16.877298+00:00",
+     "start_time": "2026-06-10T13:38:45.832255+00:00",
      "status": "completed"
     },
     "tags": []
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "used_price         0\n",
+       "graded_price       0\n",
+       "name               0\n",
+       "set                0\n",
+       "id                 0\n",
+       "series             0\n",
+       "generation         0\n",
+       "release_date       0\n",
+       "hp              2756\n",
+       "attacks         2756\n",
+       "rarity             0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "#Defining with regex expressions \n",
     "def clean_column(ds):\n",
@@ -135,21 +158,23 @@
     "#Drop the rows with 0.00 (Only if both used_price and graded_price are 0.00) \n",
     "merged_df[\"used_price\"] = merged_df[\"used_price\"].replace(0, np.nan)\n",
     "merged_df[\"graded_price\"] = merged_df[\"graded_price\"].replace(0, np.nan)\n",
-    "merged_df = merged_df.dropna(subset=[\"used_price\", \"graded_price\"], how=\"all\")\n",
+    "merged_df = merged_df.dropna(subset=[\"used_price\", \"graded_price\"])\n",
     "\n",
+    "#Missing val hp an attacks for support cards\n",
+    "merged_df.isnull().sum()\n",
     "\n"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "74c0e4c0",
+   "id": "93379527",
    "metadata": {
     "papermill": {
-     "duration": 0.001544,
-     "end_time": "2026-06-10T13:14:17.423942+00:00",
+     "duration": 0.001613,
+     "end_time": "2026-06-10T13:38:46.380223+00:00",
      "exception": false,
-     "start_time": "2026-06-10T13:14:17.422398+00:00",
+     "start_time": "2026-06-10T13:38:46.378610+00:00",
      "status": "completed"
     },
     "tags": []
@@ -187,14 +212,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 5.481855,
-   "end_time": "2026-06-10T13:14:17.844090+00:00",
+   "duration": 5.961929,
+   "end_time": "2026-06-10T13:38:46.904313+00:00",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2026-06-10T13:14:12.362235+00:00",
+   "start_time": "2026-06-10T13:38:40.942384+00:00",
    "version": "2.7.0"
   }
  },
